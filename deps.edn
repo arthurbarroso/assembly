@@ -9,6 +9,4 @@
                   :extra-deps
                   {lambdaisland/kaocha {:mvn/version "1.60.945"}
                    lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}}}
-           :dev {:extra-paths ["resources"]}
-
-           :r {:exec-fn reservoir.core/-main}}}
+           :dev {:extra-paths ["resources"]}}}
