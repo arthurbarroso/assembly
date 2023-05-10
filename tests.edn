@@ -1,0 +1,15 @@
+#kaocha/v1
+ {:tests [{:id          :unit
+           :source-paths ["src"]
+           :test-paths  ["test"]
+           :ns-patterns [".*"]}]
+
+  :fail-fast? true
+  :color? true
+
+  :plugins [:kaocha.plugin/capture-output
+            :kaocha.plugin/cloverage
+            :hooks]
+
+  :cloverage/opts
+  {:codecov? true}}

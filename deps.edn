@@ -1,0 +1,14 @@
+{:deps {org.clojure/clojure {:mvn/version "1.10.3"}
+        instaparse/instaparse {:mvn/version "1.4.12"}
+        org.clojure/tools.cli {:mvn/version "1.0.219"}}
+
+ :paths ["src" "dev"]
+
+ :aliases {:test {:main-opts ["-m" "kaocha.runner"]
+                  :extra-paths ["resources"]
+                  :extra-deps
+                  {lambdaisland/kaocha {:mvn/version "1.60.945"}
+                   lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}}}
+           :dev {:extra-paths ["resources"]}
+
+           :r {:exec-fn reservoir.core/-main}}}
