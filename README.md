@@ -5,7 +5,9 @@ A tool to transform a very basic assembly language into instruction code (to be 
 Usage:
 
 ``` sh
-clojure -M -m revoir.cli -i "your-input-file-path" -o "output-file-name"
+java -jar releases/revoir-0.0.1.jar -i "input-file" -o "output-file"
 # or
-./compile.sh "your-input-file-path" "output-file-name"
+clojure -M -m revoir.cli -i "your-input-file" -o "output-file"
+# or
+./compile.sh "your-input-file" "output-file"
 ```

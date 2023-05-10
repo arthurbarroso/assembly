@@ -1,7 +1,8 @@
 (ns revoir.cli
   (:require [revoir.core :as r]
             [clojure.tools.cli :as cli]
-            [clojure.string :as str]))
+            [clojure.string :as str])
+  (:gen-class))
 
 (def cli-options
   [["-i" "--input INPUTFILE" "Input file"
@@ -28,12 +29,22 @@
           instructions (r/transform file-tree)]
       (r/write-file instructions output))
     (catch Exception e
-      (println "deu erro: " e))))
+      (println "Error: " e))))
 
 (defn -main [& args]
-  (let [{:keys [options errors]} (cli/parse-opts args cli-options)]
+  (let [{:keys [options errors] :as x} (cli/parse-opts args cli-options)]
     (cond errors
           (exit 1 (error-msg errors))
+
+          (nil? (:input options))
+          (exit 1
+                (str "Missing required argument: Input\n"
+                     "-i <input> --input <input>"))
+
+          (nil? (:output options))
+          (exit 1
+                (str "Missing required argument: Output\n"
+                     "-i <output> --input <output>"))
 
           (:help options)
           (exit 0 "vamo ver")
@@ -41,3 +52,6 @@
           :else
           (handler (:input options)
                    (:output options)))))
+
+(comment
+  (cli/parse-opts [] cli-options))
