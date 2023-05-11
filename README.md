@@ -1,13 +1,18 @@
-# Assembler?
+# Small assembler
 
-A tool to transform a very basic assembly language into instruction code (to be used with logisim). Created for college and for fun.
+A tool to transform a very basic assembly language into instruction code (to be used with [logisim](https://sourceforge.net/projects/circuit/)). Created for college and for fun.
 
-Usage:
+## Usage
+
+Grab yourself one of the jar files from [releases](https://github.com/arthurbarroso/revoir/releases) and run it with
 
 ``` sh
-java -jar releases/revoir-0.0.1.jar -i "input-file" -o "output-file"
-# or
-clojure -M -m revoir.cli -i "your-input-file" -o "output-file"
-# or
-./compile.sh "your-input-file" "output-file"
+java -jar revoir.jar -i "input-file-path" -o "output-file-path"
 ```
+The input file should be the `.asm` file. The output file will correspond to the logisim usable "memory file".
+
+## Development
+
+This is written in Clojure. The main commands here (apart from starting youserlf a REPL) are `bin/kaocha` and `clojure -X:build :jar release-path.jar :main-class revoir.cli`
+
+Tests can be found in `test` and the test-related files sit in `resources/tests`
