@@ -11,6 +11,6 @@
                    lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}}}
            :dev {:extra-paths ["resources"]}
 
-           :comp {:extra-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
-                  :exec-fn hf.depstar/uberjar
-                  :exec-args {:aot true}}}}
+           :build {:extra-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
+                   :exec-fn hf.depstar/uberjar
+                   :exec-args {:aot true}}}}
