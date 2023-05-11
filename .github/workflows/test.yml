@@ -1,0 +1,41 @@
+name: test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    paths-ignore:
+      - '*.md'
+
+jobs:
+   test:
+     name: test
+     runs-on: ubuntu-latest
+
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+
+       - name: Setup Java
+         uses: actions/setup-java@v1
+         with:
+           java-version: "11.0.8"
+
+       - name: Install Clojure
+         uses: DeLaGuardo/setup-clojure@master
+         with:
+           cli: 1.10.1.693
+
+       - name: Cache clojure dependencies
+         uses: actions/cache@v1
+         with:
+           path: ~/.m2/repository
+           key: ${{ runner.os }}-maven-${{ hashFiles('project.clj') }}
+           restore-keys: ${{ runner.os }}-maven-
+
+       - name: Fetch clojure dependencies
+         run: clojure -P
+
+       - name: Run tests
+         run: bin/kaocha

@@ -15,6 +15,6 @@
 
 (deftest parser-test
   (testing "Correctly parses the assembly code"
-    (let [test-file-contents (r/read-file "tests/base.asm")
+    (let [test-file-contents (r/read-file "resources/tests/base.asm")
           result (r/parse test-file-contents)]
       (is (= expected-result result)))))
