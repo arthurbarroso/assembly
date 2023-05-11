@@ -7,7 +7,7 @@
 
 (deftest transformer-test
   (testing "Correctly transforms the assembly code"
-    (let [test-file-contents (r/read-file "tests/base.asm")
+    (let [test-file-contents (r/read-file "resources/tests/base.asm")
           tree (r/parse test-file-contents)
           result (r/transform tree)]
       (is (= expected-result result)))))
