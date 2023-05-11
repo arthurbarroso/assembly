@@ -1,3 +1,0 @@
-{:paths ["bb"]
- :deps {io.github.babashka/instaparse-bb {:git/sha "6fc056915b939bfbb5ac01460b53aab8fc18ba10"}
-        org.babashka/cli {:mvn/version "0.4.39"}}}
