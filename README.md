@@ -1,6 +1,6 @@
 # Small assembler
 
-A tool to transform a very basic assembly language into instruction code (to be used with [logisim](https://sourceforge.net/projects/circuit/)). Created for college and for fun.
+A tool to transform a very basic assembly language into instruction code (to be used with [logisim](https://sourceforge.net/projects/circuit/)). Created for college and for fun. The CPU this is meant to be used with can be found [here](https://github.com/MarceloCamponez/CPU_LOGISIM)
 
 ## Usage
 
