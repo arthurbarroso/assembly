@@ -1,0 +1,47 @@
+name: publish
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+   publish:
+     name: publish
+     runs-on: ubuntu-latest
+     if: github.repository_owner == 'arthurbarroso'
+
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+
+       - name: Setup Java
+         uses: actions/setup-java@v1
+         with:
+           java-version: "11.0.8"
+
+       - name: Install Clojure
+         uses: DeLaGuardo/setup-clojure@master
+         with:
+           cli: 1.10.1.693
+
+       - name: Cache clojure dependencies
+         uses: actions/cache@v1
+         with:
+           path: ~/.m2/repository
+           key: ${{ runner.os }}-maven-${{ hashFiles('deps.edn') }}
+           restore-keys: ${{ runner.os }}-maven-
+
+       - name: Fetch clojure dependencies
+         run: clojure -P
+
+       - name: Build uberjar
+         run: clojure -X:build :jar releases/revoir.jar :main-class revoir.cli
+
+       - name: Create release
+         uses: ncipollo/release-action@v1
+         with:
+           name: ${{ env.GITHUB_REF_NAME }}
+           tag: ${{ env.GITHUB_REF_NAME }}
+           artifacts: "releases/revoir.jar"
+           token: ${{ secrets.GITHUB_TOKEN }}
