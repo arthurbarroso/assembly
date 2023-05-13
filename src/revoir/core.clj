@@ -51,7 +51,13 @@
                 (safe-extract b))]
      (Integer/toString (Integer/parseInt f 2) 16))))
 
-(def parse (insta/parser asm))
+(def parser (insta/parser asm))
+
+(defn parse [contents]
+  (let [parsed-content (parser contents)]
+    (if (insta/failure? parsed-content)
+      (throw (ex-info "Failure parsing contents" {:contents parsed-content}))
+      parsed-content)))
 
 (def transforms
   {:MOVE (constantly "000")
