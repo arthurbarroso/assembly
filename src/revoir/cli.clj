@@ -22,14 +22,31 @@
   (println msg)
   (System/exit status))
 
-(defn- handler [input output]
+(defn- load-input-file [filename]
   (try
-    (let [file-contents (r/read-file input)
-          file-tree (r/parse file-contents)
-          instructions (r/transform file-tree)]
-      (r/write-file instructions output))
-    (catch Exception e
-      (println "Error: " e))))
+    {:error nil :results (r/read-file filename)}
+    (catch Exception _e
+      (exit 1 "Error loading input file"))))
+
+(defn- write-output-file [contents filename]
+  (try
+    {:error nil :results (r/write-file contents filename)}
+    (catch Exception _e
+      (exit 1 "Error writing outputs"))))
+
+(defn- transform-and-parse [contents]
+  (try
+    (r/transform (r/parse contents))
+    (catch Exception _e
+      (exit 1 "Parsing failure"))))
+
+(defn- handler [input-filename output-filename]
+  (some-> input-filename
+          load-input-file
+          (:results)
+          transform-and-parse
+          (write-output-file output-filename)
+          (:results)))
 
 (defn -main [& args]
   (let [{:keys [options errors] :as x} (cli/parse-opts args cli-options)]
@@ -54,4 +71,7 @@
                    (:output options)))))
 
 (comment
-  (cli/parse-opts [] cli-options))
+  (-> "resources/thing.asm"
+      r/read-file
+      r/parse
+      (r/write-file "testando")))
