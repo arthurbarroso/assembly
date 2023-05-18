@@ -56,12 +56,7 @@
    (let [a' (safe-extract a)
          b' (safe-extract b)
          c' (safe-extract c)
-         _ (clojure.pprint/pprint {:a a' :b b' :c c'
-                                   :b-form-hex (conversions/hex->bin b')})
          f (str a' c' (conversions/hex->bin b'))]
-     (clojure.pprint/pprint {:f f
-                             :conversion {:ac (conversions/bin->hex (str a' c'))
-                                          :b (conversions/hex->bin b')}})
      (conversions/b->h f))))
 
 (def parser (insta/parser asm))
