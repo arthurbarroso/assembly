@@ -1,7 +1,8 @@
 (ns revoir.core
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
-            [instaparse.core :as insta]))
+            [instaparse.core :as insta]
+            [revoir.conversions :as conversions]))
 
 (defn read-file [filename] (-> filename
                                io/file
@@ -26,7 +27,7 @@
    GOTO = #'(GOTO)'
    STORE = #'(STORE)'
 
-   OPERAND = #'[0-1]{4}'
+   OPERAND = #'\\d{1}|[A-Z]{1}'
    LINEEND = (NEWLINE | BLANKLINE)
    SPACE = ' '
    BLANKLINE = #'\\n\n'
@@ -37,8 +38,14 @@
 
 (defn safe-extract [t]
   (if t
-    (last t)
+    (if (seq t)
+      (last t)
+      t)
     ""))
+
+(defn- from-hex [s]
+  (Integer/toBinaryString (Integer/parseInt s 16)))
+  
 
 (defn transform-instruction
   ([a]
@@ -46,10 +53,16 @@
   ([a b]
    (transform-instruction a b nil))
   ([a b c]
-   (let [f (str (safe-extract a)
-                (safe-extract c)
-                (safe-extract b))]
-     (Integer/toString (Integer/parseInt f 2) 16))))
+   (let [a' (safe-extract a)
+         b' (safe-extract b)
+         c' (safe-extract c)
+         _ (clojure.pprint/pprint {:a a' :b b' :c c'
+                                   :b-form-hex (conversions/hex->bin b')})
+         f (str a' c' (conversions/hex->bin b'))]
+     (clojure.pprint/pprint {:f f
+                             :conversion {:ac (conversions/bin->hex (str a' c'))
+                                          :b (conversions/hex->bin b')}})
+     (conversions/b->h f))))
 
 (def parser (insta/parser asm))
 
@@ -81,9 +94,3 @@
 (defn write-file [contents filename]
   (spit filename (gen-output contents)))
 
-(comment
-  (-> "thing.asm"
-      read-file
-      parse
-      transform
-      (write-file "outputmemory")))
