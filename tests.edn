@@ -12,4 +12,5 @@
             :hooks]
 
   :cloverage/opts
-  {:codecov? true}}
+  {:codecov? true
+   :ns-exclude-regex ["revoir.cli"]}}

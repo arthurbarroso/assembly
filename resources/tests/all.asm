@@ -1,0 +1,16 @@
+	MOVE 0, 1
+	MOVE 0, 0
+	ADD A, 0
+	ADD A, 1
+	GOTO F
+	STORE A
+	SUB 8, 0
+	SUB 8, 1
+	OR A, 0
+	OR A, 1
+	XOR 1, 1
+	XOR 1, 0
+	SHIFT 9, 1
+	SHIFT 9, 0
+	JMP 8, 0
+	JMP 8, 1
