@@ -11,6 +11,33 @@ java -jar revoir.jar -i "input-file-path" -o "output-file-path"
 ```
 The input file should be the `.asm` file. The output file will correspond to the logisim usable "memory file".
 
+```sh
+> cat base.asm
+MOVE 0, 1
+ADD A, 0
+GOTO F
+STORE A
+SUB 8, 0
+OR A, 0
+XOR 1, 1
+SHIFT 9, 1
+JMP 8, 0
+
+> java -jar revoir.jar -i "base.asm" -o "mem1"
+
+> cat mem1
+v2.0 raw
+10
+2a
+ef
+fa
+48
+6a
+91
+b9
+c8
+```
+
 ## Development
 
 This is written in Clojure. The main commands here (apart from starting youserlf a REPL) are `bin/kaocha` and `clojure -X:build :jar release-path.jar :main-class revoir.cli`
