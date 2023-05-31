@@ -38,13 +38,7 @@ b9
 c8
 ```
 
-## Development
-
-This is written in Clojure. The main commands here (apart from starting youserlf a REPL) are `bin/kaocha` and `clojure -X:build :jar release-path.jar :main-class revoir.cli`
-
-Tests can be found in `test` and the test-related files sit in `resources/tests`
-
-## Example conversion table
+### Example conversion table
 
 | ASSEMBLY   | BINARY   | HEX |
 |------------|----------|-----|
@@ -64,3 +58,9 @@ Tests can be found in `test` and the test-related files sit in `resources/tests`
 | SHIFT 9, 1 | 10111001 | b9  |
 | JMP 8, 0   | 11001000 | c8  |
 | JMP 8, 1   | 11011000 | d8  |
+
+## Development
+
+This is written in Clojure. The main commands here (apart from starting youserlf a REPL) are `bin/kaocha` and `clojure -X:build :jar release-path.jar :main-class revoir.cli`
+
+Tests can be found in `test` and the test-related files sit in `resources/tests`
